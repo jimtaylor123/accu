@@ -16,8 +16,8 @@ return new class extends Migration
             $table->id();
             $table->string('csv_id');
             $table->foreignIdFor(Customer::class);
-            $table->string('name');
-            $table->decimal('weight', 10, 3);
+            $table->string('name')->nullable();
+            $table->decimal('weight', 10, 3)->default(0.0);
             $table->timestamps();
         });
     }
