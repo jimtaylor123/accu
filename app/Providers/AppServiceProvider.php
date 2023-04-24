@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Services\CsvImportService;
 use Illuminate\Support\ServiceProvider;
+use App\Interfaces\CsvImporterInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -11,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(CsvImporterInterface::class, CsvImportService::class);
     }
 
     /**
