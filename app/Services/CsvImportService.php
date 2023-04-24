@@ -64,8 +64,8 @@ class CsvImportService implements CsvImporterInterface
         $bar->finish();
 
         if(count($updatedOrders) > 0){
+            $this->output->writeln("Affected orders will be updated shortly - please wait");
             UpdateOrderNamesAndWeights::dispatch($updatedOrders);
-            $this->output->writeln("Affected orders will be updated shortly");
         }
     }
 

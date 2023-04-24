@@ -86,8 +86,9 @@ export default defineComponent({
         search() {
             if (this.searchTerm.trim().length === 0) {
                 this.filteredItems = this.items
+                return
             }
-            this.filteredItems = this.items.filter(o => o.name.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1)
+            this.filteredItems = this.items.filter(i => i.name.length && i.name.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1)
         },
     },
 })
