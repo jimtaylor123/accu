@@ -8,7 +8,7 @@ This guide will assume you are using a mac - using a different operating system 
 * Clone the repo
 
 ```sh
-git clone repo 
+git clone https://github.com/jimtaylor123/accu.git 
 ```
 
 
