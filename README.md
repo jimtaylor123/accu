@@ -2,32 +2,61 @@
 
 ## Set up
 
-install docker on your machine
+This guide will assume you are using a mac - using a different operating system might slightly change the set up steps.
 
-git clone repo
+* Install docker, git, php8.2 and composer on your machine
+* Clone the repo
+
+```sh
+git clone repo 
+```
+
+
+* Shell into the container by moving into the project and running a few commands
+```sh 
 cd accu-test
-./vendor/bin/sail up
+composer install
+./vendor/bin/sail up -d
 ./vendor/bin/sail shell
+```
 
-connect to db
-create table in db called accu_test
+From here on all commands should be run in the container, not directly on your machine.
 
+* Connect to db
+
+Open a connection to the mysql container using a tool like tableplus or sqlpro
+
+Open the database called accu_test or create it if it isn't present
+
+* Install dependencies, populate .env file
+
+```
 composer install
 cp .env.example .env
 php artisan key:generate
+```
+
+* Run commands to set up database - NB you will require an internet connection for this to work
+```
 php artisan migrate
 php artisan db:seed
+php artisan app:fetch-products
+php artisan app:import-csv-order-items
+```
+* Install npm packages and run dev server
+```sh
+npm install
+npm run dev
+``` 
 
-go to localhost
-log in using jim@jimtaylor.co.uk and password Password123
+* Go to localhost in a browser
+* Log in using email `jim@jimtaylor.co.uk` and password `Password123`
+
+You should now be able to see and search a list of orders. Clicking on the "View" button should take you to a page where you can view the order in detail and view its order items.
 
 NB in real app you would set scheduler to run cron job each hour
 
-php artisan app:fetch-products
-php artisan app:import-csv-order-items
-
-// BLITZ
-php artisan migrate:fresh && \
-php artisan db:seed && \
-php artisan app:fetch-products && \
-php artisan app:import-csv-order-items
+## Possible improvements
+* Add server side search, sorting and pagination to the list tables
+* Move the order list to a separate page, not the dashboard
+* Write a few feature tests

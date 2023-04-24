@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Customer;
 use App\Models\OrderItem;
 use App\Interfaces\CsvImporterInterface;
+use App\Jobs\UpdateOrderNamesAndWeights;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
@@ -63,20 +64,8 @@ class CsvImportService implements CsvImporterInterface
         $bar->finish();
 
         if(count($updatedOrders) > 0){
-
-            // queue this...
-
-            $this->output->writeln("Updating orders");
-            $bar = new ProgressBar($this->output, count($updatedOrders));
-            $bar->start();
-            foreach($updatedOrders as $updatedOrder){
-                $updatedOrder->recalculateTotalWeight();
-                if(!$updatedOrder->name){
-                    $updatedOrder->update(['name' => $updatedOrder->createAmusingName()]);
-                }
-                $bar->advance();
-            }
-            $bar->finish();
+            UpdateOrderNamesAndWeights::dispatch($updatedOrders);
+            $this->output->writeln("Affected orders will be updated shortly");
         }
     }
 
