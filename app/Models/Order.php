@@ -39,7 +39,8 @@ class Order extends Model
         $orderItems = $this->orderItems;
         $weight = 0;
         foreach($orderItems as $orderItem){
-            $weight = $weight + $orderItem->weight * $orderItem->quantity;
+            $weight = $weight + ($orderItem->product->weight * $orderItem->quantity);
+            
         }
 
         $this->update(['weight' => $weight]);

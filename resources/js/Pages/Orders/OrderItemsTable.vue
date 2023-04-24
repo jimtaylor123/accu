@@ -30,21 +30,15 @@
                             <thead class="border-b bg-white font-medium">
                                 <tr>
                                     <th scope="col" class="px-6 py-4">#</th>
-                                    <th scope="col" class="px-6 py-4">Name</th>
-                                    <th scope="col" class="px-6 py-4">Created</th>
-                                    <th scope="col" class="px-6 py-4"></th>
+                                    <th scope="col" class="px-6 py-4">Product</th>
+                                    <th scope="col" class="px-6 py-4">Quantity</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="item in filteredItems" class="border-b bg-neutral-100 transition duration-300 ease-in-out cursor-pointer hover:bg-pink-300">
-                                    <td class="whitespace-nowrap px-6 py-4 font-medium">{{ item.id }}</td>
-                                    <td class="whitespace-nowrap px-6 py-4">{{ item.name }}</td>
-                                    <td class="whitespace-nowrap px-6 py-4">{{ format(parseISO(item.created_at), 'LLL d, yyyy H:H') }}</td>
-                                    <td class="whitespace-nowrap px-6 py-4">
-                                        <Link :href="`/orders/${item.id}`">
-                                            <PrimaryButton>View</PrimaryButton>
-                                        </Link>
-                                    </td>
+                                    <td class="whitespace-nowrap px-6 py-4 font-medium">{{ item.product.id }}</td>
+                                    <td class="whitespace-nowrap px-6 py-4 font-medium">{{ item.product.name }}</td>
+                                    <td class="whitespace-nowrap px-6 py-4">{{ item.quantity }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -56,15 +50,10 @@
     </div>
 </template>
 
-<script setup>
-import { Link } from '@inertiajs/vue3'
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-</script>
 <script>
 import { defineComponent } from 'vue';
 import _debounce from 'lodash/debounce'
 import { router } from '@inertiajs/vue3'
-import { format, parseISO } from 'date-fns'
 
 export default defineComponent({
     props: {
@@ -88,8 +77,8 @@ export default defineComponent({
             if (this.searchTerm.trim().length === 0) {
                 this.filteredItems = this.items
             }
-            this.filteredItems = this.items.filter(o => o.name.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1)
+            this.filteredItems = this.items.filter(o => o.product.name.toLowerCase().indexOf(this.searchTerm.toLowerCase()) > -1)
         },
-    },
+    }
 })
 </script>
