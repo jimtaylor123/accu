@@ -14,7 +14,7 @@ git clone https://github.com/jimtaylor123/accu.git
 
 * Shell into the container by moving into the project and running a few commands
 ```sh 
-cd accu-test
+cd accu
 composer install
 ./vendor/bin/sail up -d
 ./vendor/bin/sail shell
