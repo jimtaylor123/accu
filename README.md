@@ -1,5 +1,11 @@
 # Accu test - bot orders
 
+## Test instructions
+
+[Instructions](The%20Accu%20Bot%20Factory%20Challenge.docx)
+
+[Order file](orders.csv)
+
 ## Set up
 
 This guide will assume you are using a mac - using a different operating system might slightly change the set up steps.
